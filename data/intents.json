@@ -19,6 +19,12 @@
             
         },
         {
+            "tag": "study_help",
+            "patterns": ["help me study", "I need help with homework", "study tips", "how to focus on studying"],
+            "responses": ["Sure! What subject are you studying?", "I can share some study tips if you tell me what you're working on."]
+
+        },
+        {
             "tag": "noanswer",
             "patterns": [],
             "responses": ["Sorry, I can't understand you.", "Please give me more information.", "Not sure I understand."]

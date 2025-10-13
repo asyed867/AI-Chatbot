@@ -4,47 +4,55 @@ matcher.py
 Handles user intent matching based on token overlap scoring.
 This helps the chatbot identify the closest intent for a given user input.
 """
+from utils import Utils
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
-from src.utils import normalize_text
-
-
-def tokenize(text):
-    """Convert text into normalized tokens (words)."""
-    return normalize_text(text).split()
-
-
-def token_overlap_score(text_a, text_b):
-    """
-    Calculate similarity between two texts using token overlap.
-    Returns a float between 0.0 and 1.0.
-    """
-    tokens_a = set(tokenize(text_a))
-    tokens_b = set(tokenize(text_b))
-    if not tokens_b:
-        return 0.0
-    return len(tokens_a & tokens_b) / len(tokens_b)
+class Matcher:
+    @staticmethod
+    def tokenize(text):
+        """Convert text into normalized tokens (words)."""
+        return Utils.normalize_text(text).split()
 
 
-def get_best_intent(user_input, intents, threshold=0.4):
-    """
-    Find the intent that best matches the user's input.
+    
 
-    Args:
+    @staticmethod
+    def get_best_intent(user_input, intents, threshold=0.4):
+        """
+        Find the intent that best matches the user's input using TF-IDF and cosine similarity.
+
+        Args:
         user_input (str): The user's message.
         intents (dict): Loaded intents file with tags and patterns.
         threshold (float): Minimum similarity to consider a match.
 
-    Returns:
+        Returns:
         tuple: (best_tag, best_score)
-    """
-    best_tag = None
-    best_score = 0.0
 
-    for intent in intents.get("intents", []):
-        for pattern in intent.get("patterns", []):
-            score = token_overlap_score(user_input, pattern)
-            if score > best_score:
-                best_score = score
-                best_tag = intent["tag"]
+        """
+        patterns = []
+        tags = []
 
-    return (best_tag, best_score) if best_score >= threshold else (None, best_score)
+        for intent in intents.get("intents", []):
+            for pattern in intent.get("patterns", []):
+                patterns.append(Utils.normalize_text(pattern))
+                tags.append(intent["tag"])
+        
+        if not patterns:
+            return (None, 0.0)
+           
+        
+        vectorizer = TfidfVectorizer()
+        pattern_vectores = vectorizer.fit_transform(patterns)
+        user_vector = vectorizer.transform(Utils.normalize_text(user_input).splitlines())
+        similarities = cosine_similarity(user_vector, pattern_vectores).flatten()
+       
+        best_index = similarities.argmax()
+        best_score = similarities[best_index]
+        best_tag = tags[best_index]
+        
+        
+        
+
+        return (best_tag, best_score) if best_score >= threshold else (None, best_score)
