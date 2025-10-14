@@ -45,7 +45,7 @@ class Matcher:
         
         vectorizer = TfidfVectorizer()
         pattern_vectores = vectorizer.fit_transform(patterns)
-        user_vector = vectorizer.transform(Utils.normalize_text(user_input).splitlines())
+        user_vector = vectorizer.transform([Utils.normalize_text(user_input)])
         similarities = cosine_similarity(user_vector, pattern_vectores).flatten()
        
         best_index = similarities.argmax()
@@ -55,4 +55,4 @@ class Matcher:
         
         
 
-        return (best_tag, best_score) if best_score >= threshold else (None, best_score)
+        return best_tag, best_score
