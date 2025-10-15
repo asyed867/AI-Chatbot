@@ -112,8 +112,8 @@
   <h1>What can I help you study today?</h1>
 
   <div class="chat-input">
-    <input type="text" placeholder="Ask a question, like 'Explain photosynthesis'..." />
-    <button>↑</button>
+    <input type="text" id = "user-input" placeholder="Ask a question, like 'Explain photosynthesis'..." />
+    <button id="send-btn">↑</button>
   </div>
 
   <div class="options">
@@ -125,3 +125,47 @@
   </div>
 </body>
 </html>
+
+<script>
+  async function sendMessage(message) {
+    if (!message) return; // Ignore empty messages
+
+    // Send the message to Flask
+    const response = await fetch("/get", {
+      method: "POST",
+      body: new URLSearchParams({ user_message: message }),
+    });
+
+    const data = await response.json();
+
+    // Show the bot's reply in a temporary popup for now
+    alert("Bot: " + data.response);
+  }
+
+  // 1️⃣ When you click the arrow button
+  document.getElementById("send-btn").addEventListener("click", () => {
+    const userInput = document.getElementById("user-input");
+    const message = userInput.value.trim();
+    sendMessage(message);
+    userInput.value = ""; // clear the input box
+  });
+
+  // 2️⃣ When you press Enter key
+  document.getElementById("user-input").addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // stop form from reloading
+      const message = e.target.value.trim();
+      sendMessage(message);
+      e.target.value = "";
+    }
+  });
+
+  // 3️⃣ When you click any of the bottom option buttons
+  document.querySelectorAll(".options button").forEach((button) => {
+    button.addEventListener("click", () => {
+      const message = button.textContent.trim();
+      sendMessage(message);
+    });
+  });
+</script>
+
