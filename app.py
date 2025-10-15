@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-from chatbot import Chatbot
+from src.chatbot import Chatbot
 
 # 1️⃣ Create a Flask web app instance
 app = Flask(__name__)

@@ -1,7 +1,7 @@
 import random
 import os
-from utils import Utils
-from matcher import Matcher
+from .utils import Utils
+from .matcher import Matcher
 from openai import OpenAI
 from dotenv import load_dotenv
 load_dotenv()

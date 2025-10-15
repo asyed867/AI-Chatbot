@@ -4,7 +4,7 @@ matcher.py
 Handles user intent matching based on token overlap scoring.
 This helps the chatbot identify the closest intent for a given user input.
 """
-from utils import Utils
+from .utils import Utils
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
