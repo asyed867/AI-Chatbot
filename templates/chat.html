@@ -1,143 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Study Chatbot</title>
-    <style>
-        body {
-            font-family: "Segoe UI", sans-serif;
-            background-color: #f3f7fb;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyChat</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background-color: #fff;
+      color: #1a1a1a;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-        .chat-container {
-            width: 400px;
-            height: 550px;
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+    }
 
-        .chat-header {
-            background-color: #007bff;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            font-size: 18px;
-            font-weight: 600;
-        }
+    .chat-input {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #ddd;
+      border-radius: 9999px;
+      padding: 0.75rem 1rem;
+      width: 600px;
+      max-width: 90%;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    }
 
-        .chat-box {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+    .chat-input input {
+      border: none;
+      outline: none;
+      flex: 1;
+      font-size: 1rem;
+    }
 
-        .bot-message, .user-message {
-            max-width: 75%;
-            padding: 10px 14px;
-            border-radius: 15px;
-            line-height: 1.4;
-        }
+    .chat-input button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #4a4a4a;
+      font-size: 1.2rem;
+    }
 
-        .bot-message {
-            background-color: #f1f0f0;
-            align-self: flex-start;
-        }
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 1.5rem;
+      gap: 0.75rem;
+    }
 
-        .user-message {
-            background-color: #007bff;
-            color: white;
-            align-self: flex-end;
-        }
+    .options button {
+      background: #f3f3f3;
+      border: none;
+      border-radius: 9999px;
+      padding: 0.5rem 1rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
 
-        .chat-input {
-            display: flex;
-            border-top: 1px solid #ddd;
-        }
-
-        .chat-input input {
-            flex: 1;
-            border: none;
-            padding: 12px;
-            font-size: 16px;
-            outline: none;
-        }
-
-        .chat-input button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .chat-input button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    .options button:hover {
+      background: #e9e9e9;
+    }
+  </style>
 </head>
 <body>
-    <div class="chat-container">
-        <div class="chat-header">💬 Study Chatbot</div>
-        <div class="chat-box" id="chat-box">
-            <div class="bot-message">Hello! How can I help you today?</div>
-        </div>
-        <form class="chat-input" id="chat-form">
-            <input type="text" id="user-input" name="user_message" placeholder="Type your message..." required>
-            <button type="submit">Send</button>
-        </form>
-    </div>
+  <h1>What can I help you study today?</h1>
 
-    <script>
-        const form = document.getElementById("chat-form");
-        const chatBox = document.getElementById("chat-box");
+  <div class="chat-input">
+    <input type="text" placeholder="Ask me about your study topic..." />
+    <button>↑</button>
+  </div>
 
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const userInput = document.getElementById("user-input");
-            const message = userInput.value.trim();
-            if (!message) return;
-
-            // Show user's message
-            const userBubble = document.createElement("div");
-            userBubble.classList.add("user-message");
-            userBubble.textContent = message;
-            chatBox.appendChild(userBubble);
-
-            // Scroll to bottom
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-            // Send message to Flask
-            const response = await fetch("/get", {
-                method: "POST",
-                body: new URLSearchParams({ user_message: message }),
-            });
-            const data = await response.json();
-
-            // Show bot's reply
-            const botBubble = document.createElement("div");
-            botBubble.classList.add("bot-message");
-            botBubble.textContent = data.response;
-            chatBox.appendChild(botBubble);
-
-            // Scroll down again
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-            // Clear input
-            userInput.value = "";
-        });
-    </script>
+  <div class="options">
+    <button>Summarize Notes</button>
+    <button>Make Flashcards</button>
+    <button>Explain a Concept</button>
+    <button>Quiz Me</button>
+    <button>Plan My Study Schedule</button>
+  </div>
 </body>
 </html>
