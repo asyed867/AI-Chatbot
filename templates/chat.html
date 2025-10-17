@@ -8,6 +8,7 @@
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 
 <body>
@@ -70,8 +71,7 @@
     }
 
     function formatBotReply(text) {
-      const paragraphs = text.split("\n").filter(p => p.trim() !== "");
-      return paragraphs.map(p => `<p>${p}</p>`).join("");
+      return marked.parse(text);
     }
 
     // Send on button click
