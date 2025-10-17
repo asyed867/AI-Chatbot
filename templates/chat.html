@@ -7,162 +7,9 @@
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
-
-  <style>
-    body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    height: 100vh;
-    background: url("{{ url_for('static', filename='images/istockphoto-1822889082-612x612.jpg') }}") no-repeat center center fixed;
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #f7f7f7;
-    text-align: center;
-    }
-
-    h1 {
-      font-size: 1.9rem;
-      font-weight: 600;
-      margin-bottom: 2rem;
-      color: #fff8e6; /* soft gold tone */
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-    }
-
-    .chat-input {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border: 1.5px solid rgba(255, 255, 255, 0.3);
-      border-radius: 40px;
-      padding: 0.8rem 1.2rem;
-      width: 600px;
-      max-width: 90%;
-      background: rgba(0, 0, 0, 0.6);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .chat-input:hover {
-      border-color: rgba(255, 215, 0, 0.6);
-      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
-    }
-
-    .chat-input input {
-      border: none;
-      outline: none;
-      flex: 1;
-      font-size: 1rem;
-      color: #fff;
-      background: transparent;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    .chat-input input::placeholder {
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    .chat-input button {
-      background: linear-gradient(135deg, #d4af37, #f5d76e);
-      border: none;
-      color: #1a1a1a;
-      font-size: 1rem;
-      padding: 0.5rem 0.9rem;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .chat-input button:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
-    }
-
-    .options {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 1.8rem;
-      gap: 0.75rem;
-    }
-
-    .options button {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 9999px;
-      padding: 0.55rem 1.1rem;
-      font-size: 0.95rem;
-      color: #fff8e6;
-      font-family: 'Poppins', sans-serif;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(4px);
-    }
-
-    .options button:hover {
-      background: rgba(255, 215, 0, 0.2);
-      transform: translateY(-1px);
-      border-color: rgba(255, 215, 0, 0.4);
-    }
-  
-  .chat-container {
-  width: 600px;
-  max-width: 90%;
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 215, 0, 0.2);
-  border-radius: 20px;
-  padding: 1.2rem;
-  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.15);
-  backdrop-filter: blur(6px);
-  margin-bottom: 2rem;
-}
-  .loading {
-  font-style: italic;
-  opacity: 0.7;
-}
-
-
-.chat-box {
-  max-height: 300px;
-  overflow-y: auto;
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.message {
-  padding: 0.75rem 1rem;
-  border-radius: 16px;
-  font-size: 0.95rem;
-  max-width: 80%;
-  word-wrap: break-word;
-  font-family: 'Poppins', sans-serif;
-}
-
-.user-message {
-  background: linear-gradient(135deg, #d4af37, #f5d76e);
-  color: #1a1a1a;
-  align-self: flex-end;
-  text-align: right;
-  box-shadow: 0 2px 6px rgba(255, 215, 0, 0.3);
-}
-
-.bot-message {
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff8e6;
-  align-self: flex-start;
-  text-align: left;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-}
-
-  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
+
 <body>
   <h1>What can I help you study today?</h1>
 
@@ -170,99 +17,88 @@
     <div id="chat-box" class="chat-box"></div>
 
     <div class="chat-input">
-      <input type="text" id = "user-input" placeholder="Ask a question, like 'Explain photosynthesis'..." />
+      <input type="text" id="user-input" placeholder="Ask a question, like 'Explain photosynthesis'..." />
       <button id="send-btn">↑</button>
     </div>
   </div>
 
-  
-
-
   <div class="options">
     <button>Summarize Notes</button>
-    <button>Make Flashcards</button>
     <button>Explain a Concept</button>
     <button>Quiz Me</button>
     <button>Plan My Study Schedule</button>
   </div>
-</body>
-</html>
 
-<script>
-  async function sendMessage(message) {
-    if (!message) return; // Ignore empty messages
+  <script>
+    async function sendMessage(message) {
+      if (!message) return;
 
+      const chatBox = document.getElementById("chat-box");
+      chatBox.classList.add("active");
 
+      // Show user's message
+      const userDiv = document.createElement("div");
+      userDiv.className = "message user-message";
+      userDiv.textContent = message;
+      chatBox.appendChild(userDiv);
 
-    // get chat box 
-    const chatBox = document.getElementById("chat-box");
+      // Show loading message
+      const loadingDiv = document.createElement("div");
+      loadingDiv.className = "message bot-message loading";
+      loadingDiv.textContent = "Bot is typing...";
+      chatBox.appendChild(loadingDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
 
-    // Show user's message
-    const userDiv = document.createElement("div");
-    userDiv.className = "message user-message";
-    userDiv.textContent = message;
-    chatBox.appendChild(userDiv);
+      // Send message to Flask
+      const response = await fetch("/get", {
+        method: "POST",
+        body: new URLSearchParams({ user_message: message }),
+      });
 
-    // Show loading message
-    const loadingDiv = document.createElement("div");
-    loadingDiv.className = "message bot-message loading";
-    loadingDiv.textContent = "Bot is typing...";
-    chatBox.appendChild(loadingDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
+      const data = await response.json();
 
-    // Send the message to Flask
-    const response = await fetch("/get", {
-      method: "POST",
-      body: new URLSearchParams({ user_message: message }),
-    });
+      // Remove loading message
+      chatBox.removeChild(loadingDiv);
 
-    const data = await response.json();
-    // Remove loading message
-    chatBox.removeChild(loadingDiv);
+      // Show bot's reply
+      const botDiv = document.createElement("div");
+      botDiv.className = "message bot-message";
+      botDiv.innerHTML = formatBotReply(data.response);
+      chatBox.appendChild(botDiv);
 
-
-    // Show bot's reply
-    const botDiv = document.createElement("div");
-    botDiv.className = "message bot-message";
-    botDiv.innerHTML = formatBotReply(data.response);
-    chatBox.appendChild(botDiv);
-
-    // Scroll to bottom
-    chatBox.scrollTop = chatBox.scrollHeight;
-
+      chatBox.scrollTop = chatBox.scrollHeight;
     }
-  
-  function formatBotReply(text) {
-  const paragraphs = text.split("\n").filter(p => p.trim() !== "");
-  return paragraphs.map(p => `<p>${p}</p>`).join("");
-  }
 
+    function formatBotReply(text) {
+      const paragraphs = text.split("\n").filter(p => p.trim() !== "");
+      return paragraphs.map(p => `<p>${p}</p>`).join("");
+    }
 
-
-    // 1️⃣ When you click the arrow button
+    // Send on button click
     document.getElementById("send-btn").addEventListener("click", () => {
       const userInput = document.getElementById("user-input");
       const message = userInput.value.trim();
       sendMessage(message);
-        userInput.value = ""; // clear the input box
+      userInput.value = "";
     });
 
-  // 2️⃣ When you press Enter key
-  document.getElementById("user-input").addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault(); // stop form from reloading
-      const message = e.target.value.trim();
-      sendMessage(message);
-      e.target.value = "";
-    }
-  });
-
-  // 3️⃣ When you click any of the bottom option buttons
-  document.querySelectorAll(".options button").forEach((button) => {
-    button.addEventListener("click", () => {
-      const message = button.textContent.trim();
-      sendMessage(message);
+    // Send on Enter key
+    document.getElementById("user-input").addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const message = e.target.value.trim();
+        sendMessage(message);
+        e.target.value = "";
+      }
     });
-  });
-</script>
 
+    // Send on option button click
+    document.querySelectorAll(".options button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const message = button.textContent.trim();
+        sendMessage(message);
+      });
+    });
+  </script>
+</body>
+</html>

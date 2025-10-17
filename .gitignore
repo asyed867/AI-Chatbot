@@ -1,2 +1,22 @@
+# Python junk
+__pycache__/
+*.pyc
+*.log
+*.sqlite3
+*.zip
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Secrets
 .env
-.venv
+
+# AWS + EB
+.elasticbeanstalk/
+
+# VS Code + GitHub
+.vscode/
+.devcontainer/
+.DS_Store
