@@ -3,7 +3,7 @@ body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   height: 100vh;
-  background: url("{{ url_for('static', filename='images/istockphoto-1822889082-612x612.jpg') }}") no-repeat center center fixed;
+  background: url("/static/images/Chatbot-background.png") no-repeat center center fixed;
   background-size: cover;
   display: flex;
   flex-direction: column;
@@ -152,3 +152,77 @@ h1 {
   transform: translateY(-1px);
   border-color: rgba(255, 215, 0, 0.4);
 }
+
+/* ==== Responsive Design ==== */
+@media screen and (max-width: 768px) {
+  body {
+    padding: 1rem;
+    height: auto;
+    background-size: cover;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .chat-container,
+  .chat-input {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  .chat-box {
+    max-height: 250px;
+    gap: 0.5rem;
+  }
+
+  .message {
+    font-size: 0.85rem;
+    padding: 0.6rem 0.9rem;
+  }
+
+  .chat-input input {
+    font-size: 0.9rem;
+  }
+
+  .chat-input button {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .options button {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 1.3rem;
+  }
+
+  .chat-box {
+    max-height: 200px;
+  }
+
+  .message {
+    font-size: 0.8rem;
+  }
+
+  .chat-input {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .chat-input button {
+    align-self: flex-end;
+  }
+
+  .options {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
