@@ -1,7 +1,7 @@
 # 🧠 StudyBuddy Chatbot
 
 A student-focused chatbot built with **Python**, **Flask**, and **OpenAI’s API**.  
-It provides simple study assistance using local intent-based responses and AI-generated answers.  
+It provides simple study assistance using both **rule-based intent matching (scikit-learn)** and **AI-generated answers**.  
 The project demonstrates **cloud deployment on AWS Elastic Beanstalk** with **automated CI/CD via GitHub Actions**.
 
 ---
@@ -16,7 +16,7 @@ Access the deployed chatbot here:
 ## 📘 Overview
 
 **StudyBuddy Chatbot** began as a local Python chatbot and evolved into a deployed web app with automated updates.  
-It’s designed to provide quick, conversational help using both local logic and OpenAI responses.
+It’s designed to provide quick, conversational help using local intent detection and OpenAI-based responses.
 
 ---
 
@@ -25,9 +25,12 @@ It’s designed to provide quick, conversational help using both local logic and
 | Technology | Purpose |
 |-------------|----------|
 | **Python (Flask)** | Backend web framework |
+| **scikit-learn** | Intent matching and text processing |
 | **OpenAI API** | AI-powered responses |
+| **Gunicorn** | WSGI server for production deployment |
+| **python-dotenv** | Environment variable management |
 | **AWS Elastic Beanstalk** | Cloud hosting and deployment |
-| **GitHub Actions** | Automated deployment (CI/CD) |
+| **GitHub Actions** | Automated CI/CD pipeline |
 | **HTML, CSS, JS** | Front-end chat interface |
 
 ---
@@ -52,7 +55,7 @@ It’s designed to provide quick, conversational help using both local logic and
 
 ## 💭 Summary
 
-- Built and deployed a **Flask-based chatbot** integrated with OpenAI  
+- Built and deployed a **Flask-based chatbot** integrating scikit-learn and OpenAI  
 - Hosted securely on **AWS Elastic Beanstalk**  
 - Implemented automated deployment using **GitHub Actions CI/CD**  
-- Demonstrates cloud deployment and full-stack integration skills in a compact project
+- Demonstrates cloud deployment, automation, and full-stack integration skills in a compact project
